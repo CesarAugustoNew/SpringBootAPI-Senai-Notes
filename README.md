@@ -1,35 +1,6 @@
 # 📝 Senai Notes — API
 
-API RESTful em **Java + Spring Boot** para o aplicativo de notas Senai Notes (login, cadastro, notas com tags e imagem, arquivamento). Construída a partir de um back-end de exemplo de outro repositório, **corrigida e adaptada** para bater exatamente com o contrato que o front-end Angular (`Projeto-Senai-Notes-Angular`) espera.
-
----
-
-## ⚠️ O front-end também precisa ser ajustado
-
-O front-end Angular, do jeito que está, chama uma URL **errada** (herdada por engano de outro projeto do curso):
-```
-https://senai-gpt-api.azurewebsites.net
-```
-em `login-screen.ts`, `new-user-screen.ts`, `notes-list.ts`, `note.ts`, `note-options.ts` e `left-panel.ts`.
-
-Para o app funcionar de ponta a ponta, essas URLs precisam apontar para **esta API** (ex.: `http://localhost:8080` em desenvolvimento, com os caminhos `/login`, `/users`, `/senainotes/notes`, `/senainotes/tags` preservados — foi exatamente para bater com esses caminhos que esta API foi ajustada). Posso fazer essa troca no front-end também, se você quiser — é só pedir.
-
----
-
-## 🛠 O que foi corrigido em relação ao back-end de exemplo
-
-| Problema no exemplo | Correção |
-|---|---|
-| Rotas `/api/login`, `/api/usuarios/cadastrar`, `/api/notas`, `/api/tag` | Trocadas para `/login`, `/users`, `/senainotes/notes`, `/senainotes/tags` — as que o front-end realmente chama |
-| `LoginRequest` esperava `{ email, senha }` | Front-end manda `{ email, password }` — campo `senha` nunca era preenchido |
-| `LoginResponse` devolvia `{ token, usuario }` | Front-end lê `response.accessToken` e `response.user.id` — nomes agora batem |
-| Cadastro de nota exigia `multipart/form-data` com upload de arquivo | Front-end manda a nota inteira como **JSON**, com a imagem em base64 — endpoint reescrito para aceitar JSON puro |
-| `GET /api/notas` devolvia as notas de **todos os usuários do sistema** | Agora `GET /senainotes/notes` só devolve as notas do usuário autenticado (extraído do token) |
-| Não existia endpoint de arquivar/desarquivar | Adicionado `PATCH /senainotes/notes/{id}` com `{ archived: true/false }` |
-| Tag era uma entidade própria (`@ManyToOne` para uma única nota); reaproveitar o nome de uma tag existente **reatribuía** essa tag para a nota nova, removendo-a silenciosamente da nota antiga | Tags agora são só uma lista de strings por nota (`@ElementCollection`) — sem essa entidade compartilhada, sem esse bug |
-| Dependia de AWS S3 (upload de imagem) e SMTP (recuperação de senha), exigindo credenciais externas | Removido — imagem é salva como string (base64) direto no banco; recuperação de senha não fazia parte do que o front-end usa hoje |
-
----
+API RESTful em **Java + Spring Boot** para o aplicativo de notas Senai Notes (login, cadastro, notas com tags e imagem, arquivamento).
 
 ## 🛠 Tecnologias
 
