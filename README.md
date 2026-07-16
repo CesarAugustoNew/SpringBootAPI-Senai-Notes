@@ -80,8 +80,3 @@ src/main/java/com/senainotes/api
 ```
 
 ---
-
-## ⚠️ Pontos de atenção
-
-- Tentar editar/arquivar/apagar uma nota que não é sua devolve `403 Forbidden`.
-- Não há endpoint de recuperação/troca de senha nesta versão — o exemplo original tinha um fluxo por e-mail (SMTP) que exigia credenciais externas e não é usado pelo front-end atual.
