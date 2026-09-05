@@ -36,7 +36,8 @@ import java.util.List;
   Principais correções em relação ao exemplo original:
     - Rotas ajustadas para bater com o que o front-end realmente
       chama: /login, /users (cadastro) e /senainotes/** (notas e tags).
-    - CORS ajustado para a porta padrão do "ng serve" (4200).
+    - CORS configurável via variável de ambiente CORS_ALLOWED_ORIGINS
+      (aceita localhost por padrão para o "ng serve").
     - Removidas as rotas de S3/e-mail, que não existem mais nesta API.
 */
 @Configuration
@@ -48,6 +49,11 @@ public class SecurityConfig {
 
     @Value("${jwt.issuer}")
     private String issuer;
+
+    // Origens liberadas a chamar a API, separadas por vírgula.
+    // Ex.: https://senai-notes.vercel.app,http://localhost:4200
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
 
     @Bean
     public JwtEncoder jwtEncoder() {
@@ -78,10 +84,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of(
-                "http://localhost:4200",
-                "http://localhost:3000"
-        ));
+        config.setAllowedOrigins(List.of(allowedOrigins.split(",")));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control", "X-Requested-With"));
         config.setAllowCredentials(true);
