@@ -1,82 +1,63 @@
-# 📝 Senai Notes — API
+<div align="center">
 
-API RESTful em **Java + Spring Boot** para o aplicativo de notas Senai Notes (login, cadastro, notas com tags e imagem, arquivamento).
+<img src="https://raw.githubusercontent.com/twbs/icons/main/icons/journal-text.svg" width="60" alt="Logo" />
 
-## 🛠 Tecnologias
+# Senai Notes
 
-- Java 21, Spring Boot 3.5
-- Spring Web, Spring Data JPA (Hibernate)
-- Spring Security + OAuth2 Resource Server (JWT via Nimbus, HMAC-SHA256)
-- PostgreSQL
-- Maven, Lombok
-- Swagger / OpenAPI (springdoc)
+Um sistema de anotações completo, com login e permissões próprias, construído com **Angular** no front-end e **Java (Spring Boot)** no back-end — publicado em nuvem, pronto para ser acessado de qualquer lugar.
 
----
+[![Frontend](https://img.shields.io/badge/Frontend-Angular-DD0031?style=flat-square&logo=angular&logoColor=white)](#)
+[![Backend](https://img.shields.io/badge/Backend-Spring%20Boot-6DB33F?style=flat-square&logo=spring&logoColor=white)](#)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white)](#)
+[![Deploy Front](https://img.shields.io/badge/Deploy%20Front-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](#)
+[![Deploy Back](https://img.shields.io/badge/Deploy%20Back-Render-46E3B7?style=flat-square&logo=render&logoColor=white)](#)
 
-## ▶️ Como rodar
+[**🔗 Acessar a aplicação**](https://projeto-senai-notes-angular.vercel.app) · [**📘 Ver documentação da API (Swagger)**](https://springbootapi-senai-notes.onrender.com/swagger-ui.html)
 
-### Pré-requisitos
-- JDK 21+
-- PostgreSQL rodando localmente na porta `5432`
-
-### 1. Criar o banco
-```sql
-CREATE DATABASE senainotes;
-```
-As tabelas são criadas automaticamente (`ddl-auto: update`), dentro do schema `notes`.
-
-### 2. Configurar credenciais (opcional)
-Por padrão usa `postgres`/`postgres` em `localhost:5432/senainotes`. Para mudar, crie um arquivo `.env` na raiz do projeto:
-```
-DB_URL=jdbc:postgresql://localhost:5432/senainotes
-DB_USERNAME=postgres
-DB_PASSWORD=sua_senha
-```
-
-### 3. Subir a aplicação
-```bash
-./mvnw spring-boot:run
-```
-A API sobe em `http://localhost:8080`.
+</div>
 
 ---
 
-## 📖 Swagger
+## Sobre o projeto
 
-```
-http://localhost:8080/swagger-ui.html
-```
+O Senai Notes é um app de anotações pessoais: cada usuário cria sua própria conta, escreve e organiza suas notas com título, descrição, imagem e etiquetas, e pode arquivar o que não precisa mais ver no dia a dia. Cada pessoa só enxerga as próprias notas — nada é compartilhado entre contas diferentes.
 
----
+**Principais funcionalidades:**
 
-## 🔌 Endpoints
+- Cadastro de usuário e login protegido por senha
+- Criar, editar, arquivar e excluir notas
+- Organizar notas por etiquetas (tags)
+- Buscar notas por título, descrição ou etiqueta
+- Anexar uma imagem a cada nota
 
-| Recurso | Método | Rota | Acesso |
-|---|---|---|---|
-| Login | POST | `/login` | Público |
-| Cadastro | POST | `/users` | Público |
-| Notas | GET | `/senainotes/notes` | Autenticado (só as suas) |
-| Notas | POST | `/senainotes/notes` | Autenticado |
-| Notas | PUT | `/senainotes/notes/{id}` | Autenticado (só as suas) |
-| Notas | PATCH | `/senainotes/notes/{id}` (arquivar/desarquivar) | Autenticado (só as suas) |
-| Notas | DELETE | `/senainotes/notes/{id}` | Autenticado (só as suas) |
-| Tags | GET | `/senainotes/tags` | Autenticado (só as suas) |
+## Tecnologias usadas
 
----
+| Camada | Tecnologia |
+|---|---|
+| Front-end | Angular |
+| Back-end | Java + Spring Boot |
+| Autenticação | JWT (login com token, sem senha trafegando depois do login) |
+| Banco de dados | PostgreSQL |
+| Publicação do front-end | Vercel |
+| Publicação do back-end e do banco | Render |
 
-## 📂 Estrutura
+## Como o projeto é organizado
 
-```
-src/main/java/com/senainotes/api
-├── controller
-├── service
-├── repository
-├── model
-├── dto
-│   ├── request
-│   └── response
-├── config       # segurança JWT, swagger
-└── exception    # tratamento global de erros
-```
+O projeto é dividido em duas partes independentes que conversam entre si pela internet:
 
----
+- **Front-end (Angular)** — a tela que a pessoa usa: login, cadastro, lista de notas, edição. Sempre que algo é criado ou alterado, ele manda essa informação para o back-end guardar de verdade.
+- **Back-end (Spring Boot)** — recebe os pedidos do front-end, confere se a pessoa está autenticada, valida os dados e só então salva ou busca as informações no banco.
+- **Banco de dados (PostgreSQL)** — onde os usuários e as notas ficam guardados de forma permanente.
+
+Essa forma de organizar o sistema (tela separada da parte que guarda os dados, se comunicando por uma API) é o padrão mais comum hoje em dia para aplicações web, porque permite atualizar cada parte de forma independente e publicar cada uma na plataforma mais adequada para ela.
+
+## Segurança
+
+O login usa **JWT** (JSON Web Token): ao entrar com e-mail e senha, o usuário recebe um token que prova, nas próximas ações, que ele já está autenticado — sem precisar reenviar a senha toda hora. Esse token também garante que uma pessoa nunca consiga ver ou alterar notas de outra conta.
+
+## Deploy
+
+- O **front-end** está publicado na **Vercel**.
+- O **back-end** e o **banco de dados** estão publicados no **Render**.
+
+As duas partes ficam em endereços próprios na internet e se comunicam automaticamente, então o sistema funciona de qualquer lugar com acesso à internet, sem precisar instalar nada na máquina do usuário.
