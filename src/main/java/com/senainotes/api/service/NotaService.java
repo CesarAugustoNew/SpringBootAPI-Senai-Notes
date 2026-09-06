@@ -121,11 +121,17 @@ public class NotaService {
         if (tags == null) {
             return new ArrayList<>();
         }
-        return tags.stream()
+        // IMPORTANTE: .toList() (desde o Java 16) devolve uma lista IMUTÁVEL.
+        // O Hibernate precisa poder chamar métodos como clear()/add() nessa
+        // coleção internamente ao sincronizar o @ElementCollection "tags" —
+        // com uma lista imutável, isso lança UnsupportedOperationException
+        // bem no meio do save(), travando toda atualização de nota. Por
+        // isso o resultado precisa ser copiado para um ArrayList mutável.
+        return new ArrayList<>(tags.stream()
                 .filter(tag -> tag != null && !tag.isBlank())
                 .map(String::trim)
                 .distinct()
-                .toList();
+                .toList());
     }
 
     private NotaResponse toResponse(Nota nota) {
