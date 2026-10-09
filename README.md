@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/twbs/icons/main/icons/journal-text.svg" width="60" alt="Logo" />
-
 # Senai Notes
 
 Um sistema de anotações completo, com login e permissões próprias, construído com **Angular** no front-end e **Java (Spring Boot)** no back-end — publicado em nuvem, pronto para ser acessado de qualquer lugar.
