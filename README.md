@@ -17,10 +17,9 @@ Um sistema de anotações completo, com login e permissões próprias, construí
 </div>
 
 ## Demonstração
-<img width="1916" height="916" alt="image" src="https://github.com/user-attachments/assets/40b53807-a63a-4db5-bcfe-d5ebed7e5fee" />
-<br>
-<br>
-<img width="1918" height="918" alt="image" src="https://github.com/user-attachments/assets/c0901375-3729-4a13-9129-69d6f16d21e6" />
+<img width="1915" height="948" alt="cadastro" src="https://github.com/user-attachments/assets/8d629a96-4aff-4d5c-b417-264cf2f6483e" />
+<img width="1918" height="946" alt="login" src="https://github.com/user-attachments/assets/fda47b06-39c8-4eef-8a1f-1e0f71b192a5" />
+<img width="1914" height="951" alt="telaprincipal" src="https://github.com/user-attachments/assets/28940fee-cfdd-4b84-9401-45ba33d0bec1" />
 
 
 ---
