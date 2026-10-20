@@ -43,7 +43,8 @@ O Senai Notes é um app de anotações pessoais: cada usuário cria sua própria
 | Autenticação | JWT (login com token, sem senha trafegando depois do login) |
 | Banco de dados | PostgreSQL |
 | Publicação do front-end | Vercel |
-| Publicação do back-end e do banco | Render |
+| Publicação do back-end | Render |
+| Hospedagem do banco | Supabase |
 
 ## Como o projeto é organizado
 
@@ -62,6 +63,7 @@ O login usa **JWT** (JSON Web Token): ao entrar com e-mail e senha, o usuário r
 ## Deploy
 
 - O **front-end** está publicado na **Vercel**.
-- O **back-end** e o **banco de dados** estão publicados no **Render**.
+- O **back-end** está publicado no **Render**.
+- O **banco de dados** está hospedado no **Supabase**.
 
 As duas partes ficam em endereços próprios na internet e se comunicam automaticamente, então o sistema funciona de qualquer lugar com acesso à internet, sem precisar instalar nada na máquina do usuário.

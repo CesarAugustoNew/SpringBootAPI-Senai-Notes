@@ -58,4 +58,4 @@ O login funciona com **JWT** (JSON Web Token): ao entrar com e-mail e senha, o u
 
 ## Deploy
 
-Publicada no **Render**, com banco de dados **PostgreSQL** também hospedado lá. A aplicação é empacotada com **Docker**, o que permite publicá-la de forma consistente em praticamente qualquer provedor de nuvem.
+Publicada no **Render**, com banco de dados **PostgreSQL** hospedado no **Supabase**. A aplicação é empacotada com **Docker**, o que permite publicá-la de forma consistente em praticamente qualquer provedor de nuvem.
